@@ -1,4 +1,11 @@
 <?php
+	
+// IE does not allow the "if isset submit" method, so we using $_SERVER 
+// We get the user's plain text password, we trim, validate and sanitize it 
+// and then we hash and and append the salt at the end of the password
+// The reason we use salt is that the evil user would have no way to break
+// out SHA512 hashes.
+if($_SERVER['REQUEST_METHOD'] == 'GET'){	
 	if(isset($_GET['password']) and !empty($_GET['password'])){
 		$password = trim($_GET['password']);
 		$password = htmlentities($password);
@@ -12,6 +19,7 @@
 		print '<h1>Salt length = '.strlen($salt).' Characters</h1>';
 
 	}
+}
 ?>
 <style type="text/css">
 	em{
